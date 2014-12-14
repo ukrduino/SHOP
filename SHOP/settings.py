@@ -69,9 +69,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'  # я с Украины, драсьте
 
 USE_I18N = True
 
@@ -97,3 +97,12 @@ DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer
 
 #TODO  In your templates, load the bootstrap3 library and use the bootstrap_* tags
 #https://github.com/dyve/django-bootstrap3
+
+
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)  # директория для статики: картинки, css, js
