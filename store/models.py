@@ -57,16 +57,30 @@ class Coffe(Product):
     P4 = "3 кг"
     T1 = "молотый"
     T2 = "в зернах"
+    R1 = "Light"
+    R2 = "Light/Medium"
+    R3 = "City"
+    R4 = "Full City"
+    R5 = "Medium-Dark"
+    R6 = "Dark"
+    R7 = "French"
+    S1 = "Робуста"
+    S2 = "Арабика"
+    S3 = "Робуста+Арабика"
 
     P_CHOISES = ((P1, "250 гр"), (P2, "500 гр"), (P3, "1 кг"), (P4, "3 кг"),)
     T_CHOISES = ((T1, "молотый"), (T2, "в зернах"),)
+    S_CHOISES = ((S1, "Робуста"), (S2, "Арабика"), (S3, "Робуста + Арабика"), )
+    R_CHOISES = ((R1, "Light / светлая"), (R2, "Light / средне-светлая"), (R3, "City / Medium-Light"),
+                 (R4, "Full City / Medium"), (R5, "Medium-Dark / Full City+ / венская обжарка"),
+                 (R6, "Dark / Italian roast"), (R7, "French roast"),)
 
     class Meta():
         db_table = 'coffe'  # определяем свое название таблицы в Б.Д.
         verbose_name = 'Кофе'  # имя модели в админке в ед ч
         verbose_name_plural = 'Кофе'  # имя модели в админке в мн ч
-    product_сoffe_type = models.CharField(max_length=50, verbose_name='Сорт кофе', blank=False)
-    product_сoffe_obzh = models.CharField(max_length=50, verbose_name='Тип обжарки', blank=False)
+    product_сoffe_sort = models.CharField(max_length=50, verbose_name='Сорт кофе', choices=S_CHOISES)
+    product_сoffe_roast = models.CharField(max_length=50, verbose_name='Тип обжарки', choices=R_CHOISES)
     product_coffe_wights = models.CharField(max_length=6, verbose_name='Вес упаковки', choices=P_CHOISES)
     product_coffe_type = models.CharField(max_length=8, verbose_name='Вид кофе', choices=T_CHOISES)
 

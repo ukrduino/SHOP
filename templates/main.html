@@ -5,6 +5,48 @@
 
 {% block main %}
 
+
+<div class="row row-centered" >
+    <div class="col-lg-8 col-centered" id="mainProdWindow" >
+      <div class="row">
+        <div class="col-lg-3" id="prodWindow">
+              <p style="text-align: center"><img src="{% static '2148_3284_9972.jpg' %}" height="150"> <span id="price">100 грн</span></p>
+              <p style="text-align: right"><a href="#" class="btn btn-info" style="width: 80px">Info</a>
+              <a href="#" class="btn btn-success" style="width: 80px">Купить</a></p>
+
+        </div>
+        <div class="col-lg-3" id="prodWindow">
+              <p style="text-align: center"><img src="{% static '5903_8971_6901.jpg' %}" height="150"></p>
+              <p style="text-align: right"><a href="#" class="btn btn-info" style="width: 80px">Info</a>
+              <a href="#" class="btn btn-success" style="width: 80px">Купить</a></p>
+
+        </div>
+        <div class="col-lg-3" id="prodWindow">
+              <p style="text-align: center"><img src="{% static '6235_1550_4687.jpg' %}" height="150"></p>
+              <p style="text-align: right"><a href="#" class="btn btn-info" style="width: 80px">Info</a>
+              <a href="#" class="btn btn-success" style="width: 80px">Купить</a></p>
+
+        </div>
+        <div class="col-lg-3" id="prodWindow">
+              <p style="text-align: center"><img src="{% static '9303_4352_6885.jpg' %}" height="150"></p>
+              <p style="text-align: right"><a href="#" class="btn btn-info" style="width: 80px">Info</a>
+              <a href="#" class="btn btn-success" style="width: 80px">Купить</a></p>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-centered" id="chartMain">
+      <div class="col-lg-12">
+        <h3 style='text-align: center'>Ваша корзина  <span class="glyphicon glyphicon-shopping-cart"></span></h3>
+      </div>
+    </div>
+
+</div>
+
+
+{% endblock main %}
       <!-- Buttons
       ================================================== -->
       <div class="bs-docs-section">
@@ -173,4 +215,4 @@
       </div>
 
 
-{% endblock main %}
+      </div>

@@ -1,0 +1,88 @@
+.navbar-default {      /*Прозрачность верхней панели, цвет фона, положение над всеми */
+    background: #231100;
+    /*opacity: 0.65;*/
+    z-index:1000;
+    position:relative;
+}
+.navbar-default .navbar-nav > li > a { /*Цвет  и размер шрифта верхней панели и выпад списка */
+    font-size: 20px;
+    color: #E9BE64;
+
+}
+
+.dropdown-menu  {
+    background-color: transparent;  /*Прозрачный фон в выпадающем меню*/
+}
+
+
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    color: #231100;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    background-color: #BFAFA2;  /*шрифт и фон при наведении и перемещении по списку, как бы инверсия */
+}
+
+.dropdown-menu > li > a {
+    font-size: 20px;
+    color: #E9BE64;
+    font-weight: 500;
+    background-color: #231100;
+   }  /*шрифт и фон  списка*/
+
+.dropdown-header {
+    font-size: 22px;
+    color: #D3BAA5;
+    font-weight: 600;
+    background-color: #231100;
+   } /*шрифт и фон  категорий списка*/
+
+#mainProdWindow {
+    background-color: #231100;
+    height: 500px;
+    opacity: 0.65;
+
+
+
+}
+#prodWindow {
+    background-color: #ffffff;
+    height: 200px;
+    margin: 30px;
+    opacity: 0.95;
+}
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+#chartMain{
+    background-color: #231100;
+    height: 500px;
+    opacity: 0.65;
+    margin-left: 50px;
+    text-align: center
+
+}
+
+
+.col-lg-12 > h3 {
+    color: #AF7C3B;
+}
+#price{
+    color: red;
+    font-size: 18px;
+    z-index:999;
+    position:relative;
+
+}
