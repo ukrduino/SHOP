@@ -9,13 +9,9 @@
     color: #E9BE64;
 
 }
-
 .dropdown-menu  {
     background-color: transparent;  /*Прозрачный фон в выпадающем меню*/
 }
-
-
-
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
     color: #231100;
@@ -39,50 +35,38 @@
     background-color: #231100;
    } /*шрифт и фон  категорий списка*/
 
-#mainProdWindow {
+.panels {
     background-color: #231100;
     height: 500px;
     opacity: 0.65;
 
-
-
 }
-#prodWindow {
+
+#product {
     background-color: #ffffff;
-    height: 200px;
+    height: 300px;
     margin: 30px;
-    opacity: 0.95;
+    text-align: center;
+}
+#product_title{
+    color: #000000;
+    font-weight: 900;
+
+}
+#product > p:nth-child(2) > a.btn{
+    width: 80px;
 }
 
-/* centered columns styles */
-.row-centered {
-    text-align:center;
-}
-.col-centered {
-    display:inline-block;
-    float:none;
-    /* reset the text-align */
-    text-align:left;
-    /* inline-block space fix */
-    margin-right:-4px;
-}
-#chartMain{
-    background-color: #231100;
-    height: 500px;
-    opacity: 0.65;
+#cart{
     margin-left: 50px;
     text-align: center
-
 }
-
-
-.col-lg-12 > h3 {
-    color: #AF7C3B;
-}
-#price{
+#cartGlf {
     color: red;
-    font-size: 18px;
-    z-index:999;
-    position:relative;
+}
+
+#product_price{
+    color: red;
+    font-weight: 900;
 
 }

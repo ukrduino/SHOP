@@ -115,10 +115,11 @@
                 </div>
               </div>
 
-    <div class="container">
-
-        {% block main %}{% endblock %}
-
+        <div class="container">
+        <div class="row">
+        <div class="col-md-8 panels" id="items">{% block items %}{% endblock %}</div>
+        <div class="col-md-3 panels" id="cart">{% block cart %}{% endblock %}</div>
+      </div>
 
     </div><!-- /.container -->
 

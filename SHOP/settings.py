@@ -10,8 +10,30 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+# TEMPLATE_DIRS = (
+#     os.path.join(BASE_DIR,  'templates'),
+# )
+# стандартные настройки BASE_DIR и TEMPLATE_DIRS заменены теми что ниже
 
+# http://stackoverflow.com/a/3038572
+# It's better to set up relative paths for your path variables
+# This way you can move your Django project and your path roots will update automatically.
+# This is useful when you're setting up your production server.
+
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
+
+TEMPLATE_DIRS = (PROJECT_PATH + '/templates/', )
+
+STATICFILES_DIRS = (os.path.join(PROJECT_PATH, 'static'),)  # директория для статики: картинки, css, js
+
+# MEDIA_ROOT = PROJECT_PATH + '/media/'
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -38,7 +60,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',
+    'cart',
     'bootstrap3',
+    'captcha',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,7 +86,7 @@ WSGI_APPLICATION = 'SHOP.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(PROJECT_PATH, 'db.sqlite3'),
     }
 }
 
@@ -85,24 +109,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-)
-
-# Мои настройки
 
 # https://github.com/django-admin-bootstrapped/django-admin-bootstrapped
-
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
+
 
 #TODO  In your templates, load the bootstrap3 library and use the bootstrap_* tags
 #https://github.com/dyve/django-bootstrap3
 
 
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)  # директория для статики: картинки, css, js

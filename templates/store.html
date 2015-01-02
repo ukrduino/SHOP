@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block items %}
+<div class="row">
+    {% for coffe in object_list %}
+        <div class="col-lg-3" id="product">
+            <h4 id="product_title">{{ coffe.title }}</h4>
+            <p style="text-align: center"><img src="http://127.0.0.1:8000/{{ coffe.image }}" alt="{{ coffe.title }}" height="150"></p>
+            <p><h4 id="product_price">{{ coffe.product_current_price }} грн</h4></p>
+            <p style="text-align: center">
+                <a href="#" class="btn btn-info">Info</a>
+                <a href="#" class="btn btn-success">Купить</a>
+            </p>
+
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
+
+{% block cart %}
+<div class="row">
+   <h3 style='text-align: center'>Ваша корзина  <span class="glyphicon glyphicon-shopping-cart" id="cartGlf"></span></h3>
+    <h3> пуста</h3>
+</div>
+{% endblock %}
