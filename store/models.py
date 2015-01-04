@@ -65,7 +65,7 @@ class Product(MainClass):  # абстрактный класс  продукта
     product_current_price = models.IntegerField(verbose_name='Текущая цена', default=0)
     product_present = models.BooleanField(verbose_name='В наличии', default=True)
     product_order = models.BooleanField(verbose_name='Под заказ', default=False)
-    product_manuf = models.ForeignKey(Manufacturer)  # производитель товара
+    product_manuf = models.ForeignKey(Manufacturer, related_name='coffes')  # производитель товара
 
 
 class Coffe(Product):  # класс продукта кофе

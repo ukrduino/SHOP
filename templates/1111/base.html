@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load staticfiles %}
-{% load bootstrap3 %}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href={% url 'home' %}>Кофе SHOP</a>
+              <a class="navbar-brand" href="#">Кофе SHOP</a>
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
               <ul class="nav navbar-nav">
@@ -105,9 +104,19 @@
         </div>
     </nav>
 
-    <div class="container">
-        {% block store %}{% endblock %}
-        {% block detail %}{% endblock %}
+        <div class="container">
+        <div class="row">
+        <div class="col-md-8 panels" id="items">{% block items %}{% endblock %}{% block detail %}{% endblock %}</div>
+        <div class="col-md-3 panels" id="cart">
+            {% block cart %}
+                <div class="row">
+                    <h3 style='text-align: center'>Ваша корзина  <span class="glyphicon glyphicon-shopping-cart" id="cartGlf"></span></h3>
+                    <h3> пуста</h3>
+                </div>
+            {% endblock %}
+        </div>
+      </div>
+
     </div><!-- /.container -->
 
 

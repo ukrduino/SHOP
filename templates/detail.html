@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block detail %}
+	<div class="row">
+        <div class="col-lg-4">
+            <img src="http://127.0.0.1:8000/{{ product.image }}" alt="{{ product.title }}" width="200" style="padding: 10px">
+            <div id="product_detail_text">
+                <p>Производитель : {{ manufacturer.title }}</p>
+                <p>Страна : {{ manufacturer.manufacturer_country }}</p>
+                <p>Есть на складе : {% if product.product_present == True %}<span style="color: blue">да</span>{% else %}<span style="color: red">нет</span>{% endif %}</p>
+                <p>Под заказ : {% if product.product_order == True %}<span style="color: blue">да</span>{% else %}<span style="color: red">нет</span>{% endif %}</p>
+            </div>
+
+        </div>
+        <div class="col-lg-8">
+            <h3>{{ product.title }}</h3>
+            <div>{{ product.product_text }}</div>
+            <div id="product_detail_price">
+                <strong>{{ product.product_current_price|default:0 }} грн </strong> <a class="btn btn-success" href='{% url 'add_main' product.id %}'>Купить <span class="glyphicon glyphicon-shopping-cart"></span></a>
+            </div>
+            <div id="comments">
+                <h4>Комментарии:</h4>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                {% if 'error' in message.tags %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    {% for comm in comments %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="comment_date">{{ comm.comment_date|date:"D d M Y"}}</div>
+                            <div class="panel-body">
+                                {{ comm.comment_text|safe}}
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                <form action="add_comment/{{ product.id }}" method="post" class="form">
+                  {% csrf_token %}
+                  {% bootstrap_field form.comment_text %}
+                  {{ form.captcha }}
+                    <input type="submit" class="btn btn-success" value="Добавить комментарий">
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
