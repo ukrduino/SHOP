@@ -4,8 +4,9 @@ from django.contrib import admin
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
+                       url(r'^cart/', include('cart.urls')),
                        url(r'^', include('store.urls')),
-                       url(r'^cart/', include('cart.urls')),)
+                       )
 
 urlpatterns += patterns('',
                         url(r'^captcha/', include('captcha.urls')),)

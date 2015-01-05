@@ -25,13 +25,14 @@ def coffe_detail(request, product_id=1):
 
 def home(request):
     args = {}
-    cart_objects = {}
-    cart_checkout_items = request.session.get('cart_checkout_items')
-    for key, value in cart_checkout_items.items():
-        item = Coffe.objects.get(id=key)
-        cart_objects[item.title] = value
-
-    args['cart_objects'] = cart_objects
+    # cart_objects = {}
+    # if request.session.get('cart_checkout_items'):
+    #     cart_checkout_items = request.session.get('cart_checkout_items')
+    #     for key, value in cart_checkout_items.items():
+    #         item = Coffe.objects.get(id=key)
+    #         cart_objects[item.title] = value
+    #
+    # args['cart_objects'] = cart_objects
     args['products'] = Coffe.objects.all()
 
     return render_to_response('store.html', args, context_instance=RequestContext(request))
@@ -56,3 +57,18 @@ def add_comment(request, product_id=1):
                                     'на вопрос проверки или оставили сообщение менее '
                                     '1 минуты назад.')
     return redirect('/%s' % product_id)
+
+
+def manufecturer_filter(request, manufecturer_id=1):
+    args = {}
+    cart_objects = {}
+    if request.session.get('cart_checkout_items'):
+        cart_checkout_items = request.session.get('cart_checkout_items')
+        for key, value in cart_checkout_items.items():
+            item = Coffe.objects.get(id=key)
+            cart_objects[item.title] = value
+
+    args['cart_objects'] = cart_objects
+    args['products'] = Coffe.objects.all()
+
+    return render_to_response('store.html', args, context_instance=RequestContext(request))

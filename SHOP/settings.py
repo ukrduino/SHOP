@@ -10,10 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-# BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-# TEMPLATE_DIRS = (
-#     os.path.join(BASE_DIR,  'templates'),
-# )
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'), )
 # стандартные настройки BASE_DIR и TEMPLATE_DIRS заменены теми что ниже
 
 # http://stackoverflow.com/a/3038572
@@ -22,11 +20,11 @@ import os
 # This is useful when you're setting up your production server.
 
 
-PROJECT_PATH = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
+# PROJECT_PATH = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
+#
+# TEMPLATE_DIRS = (PROJECT_PATH + '/templates/', )
 
-TEMPLATE_DIRS = (PROJECT_PATH + '/templates/', )
-
-STATICFILES_DIRS = (os.path.join(PROJECT_PATH, 'static'),)  # директория для статики: картинки, css, js
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)  # директория для статики: картинки, css, js
 
 # MEDIA_ROOT = PROJECT_PATH + '/media/'
 
@@ -88,7 +86,7 @@ WSGI_APPLICATION = 'SHOP.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_PATH, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -131,5 +129,3 @@ TEMPLATE_CONTEXT_PROCESSORS = (  # http://stackoverflow.com/questions/2551933/
 )
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-

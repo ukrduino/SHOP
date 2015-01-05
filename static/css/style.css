@@ -49,6 +49,8 @@ body {
 
 .panels {
     background: rgba(31,17,0,0.65);
+    padding: 10px;
+    color: #C6AB9B;
 
 
 }
@@ -61,6 +63,7 @@ body {
 }
 #product_title{
     color: #000000;
+    font-size: 15px;
 }
 
 #product_detail_text{
@@ -79,7 +82,8 @@ body {
 }
 
 #cart{
-    margin-left: 50px;
+    margin-left: 40px;
+    padding: 10px;
     text-align: center
 }
 #cartGlf {
@@ -111,3 +115,14 @@ body {
         /*}*/
         /*</style>*/
           /**/
+#cart > .row > .row{
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+#product > p > .btn {
+    width: 60px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}

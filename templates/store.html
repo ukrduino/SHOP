@@ -4,8 +4,8 @@
 
 {% block store %}
     <div class="row">
-        <div class="col-md-8 panels" id="items">
-            {% for coffe in products %}
+        <div class="col-lg-8 panels" id="items">
+            {% for coffe in object_list %}
                 <div class="col-lg-3" id="product">
                     <h4 id="product_title"><strong>{{ coffe.title }}</strong></h4>
                     <p style="text-align: center"><img src="http://127.0.0.1:8000/{{ coffe.image }}" alt="{{ coffe.title }}" height="150"></p>
@@ -17,17 +17,34 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-md-3 panels" id="cart">
+        <div class="col-lg-3 panels" id="cart">
             {% block cart %}
                 <div class="row">
-                    <h3 style='text-align: center'>Ваша корзина  <span class="glyphicon glyphicon-shopping-cart" id="cartGlf"></span></h3>
+                    <h3 style='text-align: center'>Ваша корзина  <img src="{% static "cup.png" %}" alt="cup" height="50"></h3>
                     {% if not request.session.cart_qwt_of_prods%}
                          <h3> пуста</h3>
                     {% else %}
 
-                            {% for key, value in cart_objects.items %}
-                                <p> {{ key }}  -  {{ value }}</p>
-                            {% endfor %}
+                        {% for key, value in request.session.grouped_prods_in_cart.items %}
+                            <div class="row">
+                                <div style='text-align: left; padding-right: 10px' class="col-lg-6">
+                                    {{ key }}
+                                </div>
+                                <div style='text-align: center' class="col-lg-2">
+                                    {{ value }}
+                                </div>
+                                <div style='text-align: center; font-size: 12px' class="col-lg-4">
+                                    <a href="{% url "rem" key %}" class="btn btn-sm btn-danger"><strong>-</strong></a>
+                                    <a href="{% url "add" key %}" class="btn btn-sm btn-success"><strong>+</strong></a>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        <div class="row">
+                            <div style='text-align: left' class="col-lg-12"><strong>Общая сумма заказа: {{ request.session.cart_cost }} грн.</strong></div>
+                        </div>
+
+                    {% endif %}
 
 {#                        {{ request.session.cart_prods }}#}
 {#                        {% for coffe in cart_objects %}#}
@@ -35,7 +52,6 @@
 {#                                <h4><strong>{{ coffe.title }} - </strong></h4>#}
 {#                            </div>#}
 {#                        {% endfor %}#}
-                    {% endif %}
                 </div>
             {% endblock %}
         </div>
