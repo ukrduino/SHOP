@@ -5,7 +5,7 @@
 {% block store %}
     <div class="row">
         <div class="col-lg-8 panels" id="items">
-            {% for coffe in object_list %}
+            {% for coffe in products %}
                 <div class="col-lg-3" id="product">
                     <h4 id="product_title"><strong>{{ coffe.title }}</strong></h4>
                     <p style="text-align: center"><img src="http://127.0.0.1:8000/{{ coffe.image }}" alt="{{ coffe.title }}" height="150"></p>
