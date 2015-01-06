@@ -24,14 +24,8 @@ def coffe_detail(request, product_id=1):
 
 
 def home(request):
-    args = {}
-    # cart_objects = {}
-    # if request.session.get('cart_checkout_items'):
-    #     cart_checkout_items = request.session.get('cart_checkout_items')
-    #     for key, value in cart_checkout_items.items():
-    #         item = Coffe.objects.get(id=key)
-    #         cart_objects[item.title] = value
-    #
+
+    args = dict()
     args['manufacturers'] = Manufacturer.objects.all()
     args['products'] = Coffe.objects.all()
 
@@ -59,20 +53,27 @@ def add_comment(request, product_id=1):
     return redirect('/%s' % product_id)
 
 
-def manufecturer_filter(request, man_id=1):
-    args = dict()
+def filter1(request, man_id):
 
+    args = dict()
+    kwargs = dict()
+    kwargs['product_manuf_id'] = man_id
     args['manufacturers'] = Manufacturer.objects.all()
-    args['products'] = Coffe.objects.filter(product_manuf_id=man_id)
+    args['products'] = Coffe.objects.filter(**kwargs)
 
     return render_to_response('store.html', args, context_instance=RequestContext(request))
 
 
-def sort_filter(request, sort):
+def filter2(request, sort_id):
+    sort_id = sort_id[0]
     args = dict()
+    kwargs = dict()
+    f = {1: "Робуста",
+         2: "Арабика",
+         3: "Робуста+Арабика"}
+    kwargs['product_сoffe_sort'] = f[int(sort_id)]
 
     args['manufacturers'] = Manufacturer.objects.all()
-    args['products'] = Coffe.objects.filter(product_сoffe_sort=sort)
-    print(sort)
+    args['products'] = Coffe.objects.filter(**kwargs)
 
     return render_to_response('store.html', args, context_instance=RequestContext(request))
