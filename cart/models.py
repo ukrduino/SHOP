@@ -23,7 +23,7 @@ class Order(models.Model):
     order_person_phone = models.CharField(max_length=30, verbose_name='Контактный телефон', blank=False)
     order_person_address = models.CharField(max_length=200, verbose_name='Адрес доставки', blank=False)
     order_person_email = models.EmailField(verbose_name='E-mail', blank=False)
-    order_pay_option = models.CharField(max_length=30, verbose_name='Тип оплаты', blank=False, choices=PAY_CHOISES)
+    order_pay_option = models.CharField(max_length=30, verbose_name='Тип оплаты', blank=False, default=None, choices=PAY_CHOISES)
     order_delivery_option = models.CharField(max_length=30, verbose_name='Тип доставки',
                                              blank=False, choices=DELIV_CHOISES)
     order_date = models.DateTimeField(verbose_name='Дата размещения', auto_now_add=True)
