@@ -5,6 +5,7 @@
 {% block store %}
     <div class="row">
         <div class="col-lg-8 panels" id="items">
+        <div class="row" id="selection_title"><p>{{ request.session.selection_type }}</p></div>
             {% for coffe in products %}
                 <div class="col-lg-3" id="product">
                     <h4 id="product_title"><strong>{{ coffe.title }}</strong></h4>

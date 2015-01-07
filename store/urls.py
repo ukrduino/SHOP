@@ -10,7 +10,8 @@ urlpatterns = patterns('',
                        url(r'^add_comment/(?P<product_id>\d+)$', 'store.views.add_comment', name='comment'),
                        # url(r'^$', ListView.as_view(model = Coffe, template_name = "store.html"), name='home'),
                        url(r'^$', 'store.views.home',  name="home"),
+                       url(r'^filter3/(?P<roast>\w+)$', 'store.views.filter3',  name="filter3"),
                        url(r'^filter2/(?P<sort_id>\d+)$', 'store.views.filter2',  name="filter2"),
-                       url(r'^filter/(?P<man_id>\d+)$', 'store.views.filter',  name="filter"),
+                       url(r'^filter1/(?P<man_id>\d+)$', 'store.views.filter1',  name="filter1"),
 
                        )

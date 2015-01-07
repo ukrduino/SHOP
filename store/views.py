@@ -28,6 +28,7 @@ def home(request):
     args = dict()
     args['manufacturers'] = Manufacturer.objects.all()
     args['products'] = Coffe.objects.all()
+    request.session['selection_type'] = "Все товары магазина"
 
     return render_to_response('store.html', args, context_instance=RequestContext(request))
 
@@ -60,12 +61,14 @@ def filter1(request, man_id):
     kwargs['product_manuf_id'] = man_id
     args['manufacturers'] = Manufacturer.objects.all()
     args['products'] = Coffe.objects.filter(**kwargs)
+    manufacturer = Manufacturer.objects.get(id=man_id)
+    request.session['selection_type'] = "Производитель " + manufacturer.title
 
     return render_to_response('store.html', args, context_instance=RequestContext(request))
 
 
 def filter2(request, sort_id):
-    sort_id = sort_id[0]
+    # sort_id = sort_id[0]
     args = dict()
     kwargs = dict()
     f = {1: "Робуста",
@@ -75,5 +78,20 @@ def filter2(request, sort_id):
 
     args['manufacturers'] = Manufacturer.objects.all()
     args['products'] = Coffe.objects.filter(**kwargs)
+    request.session['selection_type'] = "Сорт кофе " + f[int(sort_id)]
+
+    return render_to_response('store.html', args, context_instance=RequestContext(request))
+
+
+def filter3(request, roast):
+
+    args = dict()
+    kwargs = dict()
+
+    kwargs['product_сoffe_roast'] = roast
+
+    args['manufacturers'] = Manufacturer.objects.all()
+    args['products'] = Coffe.objects.filter(**kwargs)
+    request.session['selection_type'] = "Обжарка " + roast
 
     return render_to_response('store.html', args, context_instance=RequestContext(request))
