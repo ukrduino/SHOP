@@ -34,7 +34,7 @@ class Order(models.Model):
     order_code = models.CharField(max_length=4, verbose_name='Код заказа', default=random.randint(0, 10000))
     order_password = models.CharField(max_length=15, verbose_name='Пароль к заказу')
     order_sum = models.IntegerField(max_length=5, verbose_name='Сумма заказа', default=0)
-    order_discount = models.IntegerField(max_length=4, verbose_name='Сумма заказа', default=0)
+    order_discount = models.IntegerField(max_length=4, verbose_name='Скидка заказа', default=0)
 
 # при обращении к классу Order возвращает его код
     def __unicode__(self):

@@ -2,21 +2,15 @@
 {% load staticfiles %}
 {% load bootstrap3 %}
 
-{% block store %}
+{% block order %}
     <div class="row">
         <div class="col-lg-8 panels" id="items">
-        <div class="row" id="selection_title"><p>{{ request.session.selection_type }}</p></div>
-            {% for coffe in products %}
-                <div class="col-lg-3" id="product">
-                    <h4 id="product_title"><strong>{{ coffe.title }}</strong></h4>
-                    <p style="text-align: center"><img src="http://127.0.0.1:8000/{{ coffe.image }}" alt="{{ coffe.title }}" height="150"></p>
-                    <h4 id="product_price"><strong>{{ coffe.product_current_price }} грн</strong></h4>
-                    <p style="text-align: center">
-                        <a href="{{ coffe.pk }}" class="btn btn-info">Info</a>
-                        <a href="{% url 'add_main' coffe.id %}" class="btn btn-success">Купить</a>
-                    </p>
-                </div>
-            {% endfor %}
+            <h4 style='text-align: center; margin-top: 30px'>Пожалуйста, введите Ваши данные для оформления заказа . . .   <span class="glyphicon glyphicon-pencil"></span></h4>
+    <form action='{% url 'make_order' %}' method="post" style="margin-top: 30px">
+        {% csrf_token %}
+        {% bootstrap_form form layout='inline'%}
+        <p><input style="text-align: right" type="submit" class="btn btn-success" value="Добавить заказ"></p>
+    </form>
         </div>
         <div class="col-lg-3 panels" id="cart">
             {% block cart %}
@@ -42,18 +36,26 @@
 
                         {% endfor %}
                         <div class="row">
-                            <div style='text-align: left; padding: 30px ' class="col-lg-12"><strong>Общая сумма заказа: {{ request.session.cart_cost }} грн.</strong></div>
-                            <p><a href="{% url "my_cart" %}" class="btn btn-success"><strong>Оформить заказ!</strong></a></p>
+                            <div style='text-align: left' class="col-lg-12"><strong>Общая сумма заказа: {{ request.session.cart_cost }} грн.</strong></div>
                         </div>
 
                     {% endif %}
-
-{#                        {{ request.session.cart_prods }}#}
-{#                        {% for coffe in cart_objects %}#}
-{#                            <div class="col-lg-12">#}
-{#                                <h4><strong>{{ coffe.title }} - </strong></h4>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
+                    {% if messages %}
+                        <div class="messages">
+                            {% for message in messages %}
+                                {% if 'success' in message.tags %}
+                                    <div class="alert alert-success" role="alert">
+                                       {{ message }}
+                                    </div>
+                                {% endif %}
+                                {% if 'error' in message.tags %}
+                                    <div class="alert alert-danger" role="alert">
+                                       {{ message }}
+                                    </div>
+                                {% endif %}
+                            {%  endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             {% endblock %}
         </div>

@@ -96,23 +96,37 @@ def rem_from_cart(request, product_title):
         request.session['cart_cost'] = rem_cart_cost
 
     return redirect('home')
-#
-#
-# def make_order(request):
-#
-#     if request.POST:
-#         form = OrderForm(request.POST)
-#         if form.is_valid():
-#             add = form.save(commit=False)
-#             add.order_products = request.session.get('cart')
-#             add.order_sum = request.session.get('cart_cost')
-#             add.save()
-#             messages.success(request, 'Спасибо за Ваш заказ, на Ваш электронный адрес'
-#                                       'направлено письмо со ссылкой для подтверждения заказа. '
-#                                       'После подтверждения Вы можете найти/изменить свой заказ '
-#                                       'в разделе заказы по его номеру.')
-#             send_mail("АЛЕ!!!!", "У вас новый заказ!!!", 'Alex.Vlasov.ukr@gmail.com', ['ukrduino@gmail.com'], fail_silently=False)
-#         else:
-#             messages.error(request, 'Ваш заказ НЕ ОФОРМЛЕН!!! Проверьте правильность введения '
-#                                     'данных и повторите заказ. ВСЕ поля НЕОБХОДИМО заполнить!!!')
-#     # return redirect(cart)
+
+
+def cart(request):
+
+    args = dict()
+
+    args['products'] = Coffe.objects.all()
+    args['form'] = OrderForm
+    request.session['selection_type'] = "Все товары магазина"
+
+    return render_to_response('cart.html', args, context_instance=RequestContext(request))
+
+
+def make_order(request):
+
+    if request.POST:
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            add = form.save(commit=False)
+            add.order_products = request.session.get('grouped_prods_in_cart')
+            add.order_sum = request.session.get('cart_cost')
+            add.save()
+            messages.success(request, 'Спасибо за Ваш заказ! ')
+                                      # 'на Ваш электронный адрес'
+                                      # 'направлено письмо со ссылкой для подтверждения заказа. '
+                                      # 'После подтверждения Вы можете найти/изменить свой заказ '
+                                      # 'в разделе заказы по его номеру.'
+
+            send_mail("АЛЕ!!!!", "У вас новый заказ!!!", 'Alex.Vlasov.ukr@gmail.com', ['ukrduino@gmail.com'],
+                      fail_silently=False)
+        else:
+            messages.error(request, 'Ваш заказ НЕ ОФОРМЛЕН!!! Проверьте правильность введения '
+                                    'данных и повторите заказ. ВСЕ поля НЕОБХОДИМО заполнить!!!')
+    return redirect(cart)
