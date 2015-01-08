@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block order_confirmed %}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 jumbotron panels">
+          <h1>Ваш заказ подтвержден!!!</h1>
+          <p>Просмотреть заказ можно в разделе заказы, найдя его по номеру и введя пароль к заказу</p>
+          <p><a class="btn btn-primary btn-lg" href="{% url "home" %}">В магазин</a></p>
+        </div>
+    </div>
+{% endblock %}

@@ -114,7 +114,7 @@ STATIC_URL = '/static/'
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 
 
-#TODO  In your templates, load the bootstrap3 library and use the bootstrap_* tags
+#In your templates, load the bootstrap3 library and use the bootstrap_* tags
 #https://github.com/dyve/django-bootstrap3
 
 

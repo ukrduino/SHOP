@@ -16,6 +16,7 @@ def coffe_detail(request, product_id=1):
     product = Coffe.objects.get(id=product_id)
     args['product'] = product
     args['manufacturer'] = product.product_manuf
+    args['manufacturers'] = Manufacturer.objects.all()
     args['comments'] = Comment.objects.filter(comment_product_id=product_id)
     args['form'] = comment_form
 #    args['username'] = auth.get_user(request).username

@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, redirect, render
 from store.models import Coffe # импортируем модели
+from cart.models import Order # импортируем модели
 #from django.core.exceptions import ObjectDoesNotExist  # ошибка - объект не существует
 #from django.http.response import Http404  # вывод страницы 404
 from cart.forms import OrderForm
@@ -8,6 +9,8 @@ from django.core.context_processors import csrf  # защита данных п�
 from django.template import RequestContext
 from django.core.mail import send_mail
 from django.contrib import messages
+
+#TODO всю корзину сделать на Ajax
 
 
 def add_to_cart_main(request, product_id=1):
@@ -54,7 +57,8 @@ def group_prods_in_cart(request, prods_in_cart):
         if prod in grouped_prods_in_cart:
             # то увеличиваем ее (записи с ключем равным id товара из списка cart) значение на 1
             grouped_prods_in_cart[prod] += 1
-        else:  # если записи с таким ключем нет то создаем ее...
+        else:
+            # если записи с таким ключем нет то создаем ее...
             grouped_prods_in_cart[prod] = 1
     # и сохраняем отсортированный словарь prod_cart_checkout в session в запись с ключем cart_checkout_items
     request.session['grouped_prods_in_cart'] = grouped_prods_in_cart
@@ -118,15 +122,48 @@ def make_order(request):
             add.order_products = request.session.get('grouped_prods_in_cart')
             add.order_sum = request.session.get('cart_cost')
             add.save()
-            messages.success(request, 'Спасибо за Ваш заказ! ')
-                                      # 'на Ваш электронный адрес'
-                                      # 'направлено письмо со ссылкой для подтверждения заказа. '
-                                      # 'После подтверждения Вы можете найти/изменить свой заказ '
-                                      # 'в разделе заказы по его номеру.'
+            messages.success(request, 'Спасибо за Ваш заказ!\n На Ваш электронный адрес направлено письмо со ссылкой '
+                                      'для подтверждения заказа. После подтверждения Вы можете найти свой '
+                                      'заказ в разделе заказы по его номеру.')
 
-            send_mail("АЛЕ!!!!", "У вас новый заказ!!!", 'Alex.Vlasov.ukr@gmail.com', ['ukrduino@gmail.com'],
+            shop_email_subject = "Новый заказ !!!"
+            shop_email_body = "Поступил новый заказ №%s!\n Покупатель - %s.\n Сумма заказа - %s.\n Товары - %s\n" \
+                              % (add.order_code, add.order_person, add.order_sum, add.order_products)
+            send_mail(shop_email_subject, shop_email_body, 'Alex.Vlasov.ukr@gmail.com', ['ukrduino@gmail.com'],
+                      fail_silently=False)
+
+            conf_link = "127.0.0.1:8000/cart/confirm_order/%s" % add.order_code
+            buyer_email_subject = "Ваш заказ в магазине КОФЕ SHOP"
+            buyer_email_body = "Добрый день уважаемый %s!!! \n Спасибо за Ваш заказ. Для подтверждения заказа " \
+                               "необходимо перейти по ссылке укзанной ниже \n %s" % (add.order_person, conf_link)
+
+            send_mail(buyer_email_subject, buyer_email_body, 'Alex.Vlasov.ukr@gmail.com', ['ukrduino@gmail.com'],
                       fail_silently=False)
         else:
             messages.error(request, 'Ваш заказ НЕ ОФОРМЛЕН!!! Проверьте правильность введения '
                                     'данных и повторите заказ. ВСЕ поля НЕОБХОДИМО заполнить!!!')
-    return redirect(cart)
+    return redirect('cart')
+
+
+
+def confirm_order(request, order_code):
+
+    order = Order.objects.get(order_code=order_code)
+    order.order_confirmed = True
+    order.save()
+    shop_email_subject = "Заказ №%s - подтвержден!!!" % order_code
+    shop_email_body = "Заказ №%s!\n Покупатель - %s.\n Телефон клиента - %s.\n Товары - %s.\n Сумма заказа - %s.\n " \
+                      "Форма оплаты - %s.\n Адрес доставки - %s.\n Способ доставки - %s" \
+                      % (order.order_code,
+                         order.order_person,
+                         order.order_person_phone,
+                         order.order_products,
+                         order.order_sum,
+                         order.order_pay_option,
+                         order.order_person_address,
+                         order.order_delivery_option)
+
+    send_mail(shop_email_subject, shop_email_body, 'Alex.Vlasov.ukr@gmail.com', ['ukrduino@gmail.com'],
+              fail_silently=False)
+
+    return redirect('order_confirmed')
